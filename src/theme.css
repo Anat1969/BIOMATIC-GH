@@ -247,3 +247,11 @@ a.btn{text-decoration:none}
   .topbar .tools::-webkit-scrollbar{display:none}
   .home-link .t-label{display:none}
 }
+
+/* כפתור ההתקנה: הפעולה הבולטת היחידה בסרגל */
+.btn-install{
+  background:linear-gradient(180deg,#E9E7E1,#C9C7C0);
+  color:#15181B;border-color:#E9E7E1;font-weight:600;
+  box-shadow:0 4px 14px -6px rgba(0,0,0,.6);
+}
+.btn-install:hover{background:#fff;border-color:#fff}

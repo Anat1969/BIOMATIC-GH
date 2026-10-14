@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2B3036"/><stop offset="1" stop-color="#121417"/>
+    </linearGradient>
+    <linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D08A55"/><stop offset="1" stop-color="#8E4F25"/></linearGradient>
+    <linearGradient id="p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86B08C"/><stop offset="1" stop-color="#3C6343"/></linearGradient>
+    <linearGradient id="m" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C3C7CB"/><stop offset="1" stop-color="#6B7178"/></linearGradient>
+    <filter id="s" x="-50%" y="-20%" width="200%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity=".55"/></filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <g filter="url(#s)">
+    <rect x="300" y="150" width="56" height="212" rx="4" fill="url(#a)"/>
+    <rect x="228" y="122" width="56" height="268" rx="4" fill="url(#p)"/>
+    <rect x="156" y="178" width="56" height="156" rx="4" fill="url(#m)"/>
+  </g>
+  <rect x="156" y="394" width="200" height="3" fill="#9AA0A6" opacity=".6"/>
+</svg>
