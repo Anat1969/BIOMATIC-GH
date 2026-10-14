@@ -1,0 +1,143 @@
+/* ===========================================================
+   שכבת העיצוב של ענת, מעל העיצוב המקורי.
+   אדריכלי ומינימליסטי, גווני אפור, IBM Plex Sans Hebrew דק בגדלים
+   גדולים ותוויות במונוספייס. עומק דרך צל, שכבות וגרדיאנט, לא קווים בלבד.
+   צבעי הממלכות והנושאים נשמרים: הם נושאים משמעות, לא קישוט.
+   =========================================================== */
+:root{
+  --ground:#E6E6E3;
+  --surface:#F2F2EF;
+  --surface-2:#DADAD6;
+  --ink:#141618;
+  --ink-soft:#4F555B;
+  --ink-faint:#70767C;
+  --line:#C9CAC5;
+  --accent:#6F7378;
+  --tool-bg:#191B1E;
+  --tool-bg-2:#24272B;
+  --tool-line:#33373D;
+
+  --sans:"IBM Plex Sans Hebrew",system-ui,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",monospace;
+  --depth-1:0 1px 2px rgba(10,12,14,.06),0 4px 14px rgba(10,12,14,.07);
+  --depth-2:0 2px 4px rgba(10,12,14,.08),0 18px 40px -12px rgba(10,12,14,.28);
+  --ease:cubic-bezier(.2,.7,.3,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D0E10;
+    --surface:#17191B;
+    --surface-2:#202326;
+    --line:#2A2D31;
+    --accent:#A3A8AE;
+    --depth-1:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.35);
+    --depth-2:0 2px 6px rgba(0,0,0,.5),0 22px 48px -14px rgba(0,0,0,.7);
+  }
+}
+
+body{
+  font-family:var(--sans);
+  background:
+    radial-gradient(120% 70% at 85% 0%,var(--surface) 0%,transparent 60%),
+    linear-gradient(180deg,var(--ground),var(--surface-2));
+  background-attachment:fixed;
+}
+h1,h2,h3{font-family:var(--sans);font-weight:300;letter-spacing:-.01em}
+
+/* תוויות: מונוספייס, מרווח, קטן */
+.t-label,.label,.kingdom-head .kfull,.kingdom-head .kstate,.tab .count,
+.footer,.open-hint,.taxon,.frame .file,.shot-pending .file{
+  font-family:var(--mono);
+  letter-spacing:.08em;
+}
+.t-label,.label{font-weight:500;text-transform:uppercase}
+.taxon{font-style:normal!important}
+
+/* הכלי: פאנל עם עומק, לא משטח שטוח */
+.tool{
+  background-image:
+    linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0) 60%),
+    repeating-linear-gradient(135deg,transparent 0 3px,var(--tool-hatch) 3px 4px);
+}
+.topbar{position:relative;z-index:5;box-shadow:0 1px 0 var(--tool-line),0 10px 24px -14px rgba(0,0,0,.6)}
+.topbar h1{
+  font-family:var(--sans);font-weight:200;
+  font-size:clamp(20px,2.4vw,30px);letter-spacing:.02em;
+}
+.btn,.tab{font-family:var(--sans)}
+.btn{border-radius:2px;transition:background .2s ease,border-color .2s ease,transform .2s var(--ease)}
+.btn:hover{transform:translateY(-1px)}
+.tab{position:relative}
+.tab[aria-current="true"]{font-weight:600}
+
+/* במה: שלוש עמודות כגיליונות מורמים מעל הרקע */
+.triptych{
+  background:none;
+  gap:clamp(10px,1.4vw,18px);
+  padding:clamp(10px,1.4vw,18px);
+  perspective:1400px;
+}
+.source,.slot-col{
+  background:linear-gradient(180deg,var(--surface),var(--ground));
+  box-shadow:var(--depth-1);
+  border-radius:3px;
+  overflow:hidden;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),background .25s ease;
+  animation:sheet-in .7s var(--ease) both;
+}
+.triptych > :nth-child(2){animation-delay:.08s}
+.triptych > :nth-child(3){animation-delay:.16s}
+@keyframes sheet-in{
+  from{opacity:0;transform:translateY(18px) rotateX(6deg)}
+  to{opacity:1;transform:none}
+}
+.source:hover,.source:focus-visible{
+  background:linear-gradient(180deg,var(--surface),var(--surface));
+  box-shadow:var(--depth-2);
+  transform:translateY(-4px);
+}
+.slot-col{background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(127,127,127,.06) 6px 7px),var(--ground);box-shadow:inset 0 0 0 1px var(--line)}
+.source-head h2{font-weight:200;font-size:clamp(24px,2.6vw,36px);line-height:1.05}
+.frame figcaption h3{font-weight:400}
+.frame img{filter:saturate(.88) contrast(1.03)}
+.source:hover .frame img{filter:none}
+
+/* כותרת ממלכה: פס צבע עם עומק */
+.kingdom-head .kname{font-family:var(--sans);font-weight:300}
+
+/* עמוד העמקה */
+.detail{
+  background:
+    radial-gradient(90% 60% at 10% 0%,var(--surface) 0%,transparent 65%),
+    var(--ground);
+}
+.detail-bar{box-shadow:0 12px 28px -16px rgba(0,0,0,.65);z-index:2}
+.detail-bar h2{font-family:var(--sans);font-weight:200}
+.panes{background:none;gap:clamp(10px,1.4vw,18px);padding:clamp(10px,1.4vw,18px)}
+.pane,.bridge{
+  background:var(--surface);
+  box-shadow:var(--depth-1);
+  border-radius:3px;
+  animation:sheet-in .6s var(--ease) both;
+}
+.pane + .pane{animation-delay:.07s}
+.pane .shot{border-radius:3px 3px 0 0}
+.bridge{animation-delay:.14s}
+.pane-body h3{font-weight:300;font-size:clamp(22px,2.2vw,30px)}
+.pane-body p,.bridge p{line-height:1.7}
+
+.empty h2{font-weight:200;font-size:clamp(30px,4vw,52px)}
+.footer{font-size:10.5px}
+
+@media (max-width:900px){
+  .triptych{gap:12px;padding:12px}
+  .source:hover,.source:focus-visible{transform:none}
+  .panes{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+@media print{
+  body{background:#fff}
+  .source,.pane,.bridge{box-shadow:none}
+}

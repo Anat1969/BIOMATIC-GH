@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מהטבע אל הבניין</title>
+<meta name="description" content="ביומימטיקה בתכנון: מנגנונים מהטבע מול יישומם בבנייה, לפי נושאים ותתי־נושאים.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+</head>
+<body>
+<div class="shell">
+  <header class="topbar tool">
+    <div class="mark">
+      <span class="t-label">ביומימטיקה בתכנון</span>
+    </div>
+    <h1>מהטבע אל הבניין</h1>
+    <div class="tools">
+      <button class="btn" id="btnShare" hidden>העתקת קישור</button>
+      <button class="btn" id="btnPrint" title="שער ועמוד A4 לכל מקור השראה">הדפסת תת־נושא</button>
+    </div>
+  </header>
+
+  <nav class="rail topics tool" id="railTopics" aria-label="נושאים">
+    <div class="rail-lead"><span class="t-label">נושא</span></div>
+  </nav>
+
+  <nav class="rail subs tool" id="railSubs" aria-label="תתי־נושאים">
+    <div class="rail-lead"><span class="t-label">תת־נושא</span></div>
+  </nav>
+
+  <main class="stage" id="stage"></main>
+
+  <footer class="footer tool" id="footer"></footer>
+</div>
+
+<section class="detail" id="detail" hidden aria-modal="true" role="dialog" aria-labelledby="detailTitle"></section>
+<div class="printsheet" id="printsheet" aria-hidden="true"></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
