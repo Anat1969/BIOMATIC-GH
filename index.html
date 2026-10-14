@@ -12,12 +12,15 @@
 </head>
 <body>
 <div class="shell">
+  <div class="navstack" id="navstack">
   <header class="topbar tool">
-    <div class="mark">
+    <a class="mark home-link" href="#" id="homeLink" aria-label="לדף הבית">
       <span class="t-label">ביומימטיקה בתכנון</span>
-    </div>
-    <h1>מהטבע אל הבניין</h1>
+      <h1>מהטבע אל הבניין</h1>
+    </a>
     <div class="tools">
+      <a class="btn btn-ext" href="https://claude.ai/code/session_012j18kwMgNoRGXNsAyEqU2f" target="_blank" rel="noopener" title="השיחה שבה נבנה האתר, להמשך שדרוג">שיחת הפיתוח</a>
+      <a class="btn btn-ext" href="https://claude.ai/project/019e0e12-3f58-7313-b2dc-eb001911b9911" target="_blank" rel="noopener" title="פרויקט Claude לחקירת התוכן">פרויקט המחקר</a>
       <button class="btn" id="btnShare" hidden>העתקת קישור</button>
       <button class="btn" id="btnPrint" title="שער ועמוד A4 לכל מקור השראה">הדפסת תת־נושא</button>
     </div>
@@ -30,6 +33,7 @@
   <nav class="rail subs tool" id="railSubs" aria-label="תתי־נושאים">
     <div class="rail-lead"><span class="t-label">תת־נושא</span></div>
   </nav>
+  </div>
 
   <main class="stage" id="stage"></main>
 

@@ -47,13 +47,15 @@ const stage      = document.getElementById("stage");
 const footer     = document.getElementById("footer");
 const detail     = document.getElementById("detail");
 
-let topicKey = TOPICS[0].key;
-let subKey   = TOPICS[0].subs[0].key;
+/* topicKey ריק = דף הבית */
+let topicKey = null;
+let subKey   = null;
 let lastFocus = null;
 
 /* הכתובת שומרת את הנושא ותת־הנושא, כדי שקישור משותף ייפתח באותו מקום */
 function readHash(){
   const [tk, sk] = decodeURIComponent(location.hash.slice(1)).split("/");
+  if(!tk){ topicKey = null; subKey = null; return true; }
   const t = TOPICS.find(x=>x.key===tk);
   if(!t) return false;
   topicKey = t.key;
@@ -62,14 +64,14 @@ function readHash(){
   return true;
 }
 function writeHash(){
-  const h = "#" + topicKey + (subKey ? "/" + subKey : "");
-  if(location.hash !== h) history.replaceState(null, "", h);
+  const h = topicKey ? "#" + topicKey + (subKey ? "/" + subKey : "") : "";
+  if(location.hash !== h) history.replaceState(null, "", h || location.pathname);
 }
 readHash();
 window.addEventListener("hashchange", ()=>{ if(readHash()) render(); });
 
 const topic = ()=> TOPICS.find(t=>t.key===topicKey);
-const sub   = ()=> topic().subs.find(s=>s.key===subKey) || null;
+const sub   = ()=> { const t = topic(); return t ? (t.subs.find(s=>s.key===subKey) || null) : null; };
 
 function renderTopics(){
   railTopics.querySelectorAll(".tab").forEach(n=>n.remove());
@@ -89,6 +91,14 @@ function renderTopics(){
 function renderSubs(){
   railSubs.querySelectorAll(".tab, .blurb").forEach(n=>n.remove());
   const t = topic();
+  if(!t){
+    const s = document.createElement("div");
+    s.className = "blurb";
+    s.style.marginInlineStart = "0";
+    s.textContent = "בחרו נושא כדי לראות את תתי־הנושאים שלו";
+    railSubs.appendChild(s);
+    return;
+  }
   if(!t.subs.length){
     const s = document.createElement("div");
     s.className = "blurb";
@@ -116,8 +126,47 @@ function renderSubs(){
   }
 }
 
+/* דף הבית: מפת כל הנושאים, עם תמונה מייצגת ותתי־הנושאים של כל אחד */
+function renderHome(){
+  const allSubs = TOPICS.flatMap(t=>t.subs);
+  const allSrc  = allSubs.flatMap(s=>s.sources);
+  stage.innerHTML = `
+    <div class="home">
+      <section class="home-hero">
+        <span class="label">ביומימטיקה בתכנון</span>
+        <h2>איך הטבע פותר את מה שהבניין צריך לפתור</h2>
+        <p>לכל אתגר תכנוני שלושה מקורות השראה, אחד מכל ממלכה: חי, צומח ודומם. לכל מקור זוג: המנגנון בטבע מול היישום בבנייה.</p>
+        <dl class="home-stats">
+          <div><dt>נושאים</dt><dd>${TOPICS.length}</dd></div>
+          <div><dt>תתי־נושאים</dt><dd>${allSubs.length}</dd></div>
+          <div><dt>מקורות השראה</dt><dd>${allSrc.length}</dd></div>
+        </dl>
+      </section>
+      <div class="home-grid">
+        ${TOPICS.map((t,i)=>{
+          const cover = t.subs.flatMap(s=>s.sources).find(x=>x.mech.img);
+          return `
+          <article class="home-card" style="--hue:${t.hue};--i:${i}">
+            <button class="home-cover" data-topic="${t.key}" aria-label="מעבר לנושא ${t.name}">
+              ${cover ? `<img src="${cover.mech.img}" alt="" loading="lazy">` : ""}
+              <span class="home-cover-text">
+                <span class="label">${String(i+1).padStart(2,"0")} · ${t.subs.length} תתי־נושאים</span>
+                <h3>${t.name}</h3>
+              </span>
+            </button>
+            <div class="home-card-body">
+              <p>${t.blurb}</p>
+              <ul>${t.subs.map(s=>`<li><button data-topic="${t.key}" data-sub="${s.key}">${s.name}</button></li>`).join("")}</ul>
+            </div>
+          </article>`;
+        }).join("")}
+      </div>
+    </div>`;
+}
+
 function renderStage(){
   const t = topic(), s = sub();
+  if(!t){ renderHome(); return; }
   if(!s){
     stage.innerHTML = `
       <div class="empty" style="--hue:${t.hue}">
@@ -172,7 +221,20 @@ function renderFooter(){
   }).join("") + `<span class="hint">לחצו על מקור השראה כדי להעמיק · Esc לסגירה</span>`;
 }
 
+function goTo(tk, sk){
+  if(!detail.hidden) closeDetail();
+  topicKey = tk;
+  const t = topic();
+  const pick = t && (t.subs.find(s=>s.key===sk) || t.subs.find(s=>s.sources.length) || t.subs[0]);
+  subKey = pick ? pick.key : null;
+  render();
+  stage.scrollTop = 0;
+  window.scrollTo(0, 0);
+}
+
 function render(){
+  document.body.classList.toggle("is-home", !topicKey);
+  document.getElementById("btnPrint").disabled = !sub();
   renderTopics(); renderSubs(); renderStage(); renderFooter(); buildPrintSheet();
   writeHash();
 }
@@ -180,19 +242,27 @@ function render(){
 railTopics.addEventListener("click", e=>{
   const b = e.target.closest("[data-topic]");
   if(!b) return;
-  topicKey = b.dataset.topic;
-  const t = topic();
-  const firstFilled = t.subs.find(s=>s.sources.length) || t.subs[0];
-  subKey = firstFilled ? firstFilled.key : null;
-  render();
+  goTo(b.dataset.topic);
 });
 railSubs.addEventListener("click", e=>{
   const b = e.target.closest("[data-sub]");
   if(!b) return;
-  subKey = b.dataset.sub;
-  render();
+  goTo(topicKey, b.dataset.sub);
 });
+document.getElementById("homeLink").addEventListener("click", e=>{
+  e.preventDefault();
+  goTo(null);
+});
+
+/* גובה סרגל הניווט הקבוע, כדי שעמוד ההעמקה ייפתח מתחתיו */
+const navstack = document.getElementById("navstack");
+const setNavH = ()=> document.documentElement.style.setProperty("--nav-h", navstack.offsetHeight + "px");
+new ResizeObserver(setNavH).observe(navstack);
+setNavH();
+
 stage.addEventListener("click", e=>{
+  const h = e.target.closest("[data-topic]");
+  if(h){ goTo(h.dataset.topic, h.dataset.sub); return; }
   const b = e.target.closest(".source");
   if(b) openDetail(b.dataset.key);
 });
