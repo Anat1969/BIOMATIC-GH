@@ -438,3 +438,23 @@ if(location.protocol === "http:" || location.protocol === "https:"){
 }
 
 render();
+
+/* ---------- התקנה כאפליקציה ---------- */
+if("serviceWorker" in navigator && location.protocol === "https:"){
+  navigator.serviceWorker.register("/sw.js").catch(()=>{});
+}
+const btnInstall = document.getElementById("btnInstall");
+let installEvent = null;
+window.addEventListener("beforeinstallprompt", e=>{
+  e.preventDefault();
+  installEvent = e;
+  btnInstall.hidden = false;
+});
+btnInstall.addEventListener("click", async ()=>{
+  if(!installEvent) return;
+  installEvent.prompt();
+  await installEvent.userChoice;
+  installEvent = null;
+  btnInstall.hidden = true;
+});
+window.addEventListener("appinstalled", ()=>{ btnInstall.hidden = true; });
