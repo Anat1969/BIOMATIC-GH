@@ -1,0 +1,249 @@
+/* ===========================================================
+   שכבת העיצוב של ענת, מעל העיצוב המקורי.
+   אדריכלי ומינימליסטי, גווני אפור, IBM Plex Sans Hebrew דק בגדלים
+   גדולים ותוויות במונוספייס. עומק דרך צל, שכבות וגרדיאנט, לא קווים בלבד.
+   צבעי הממלכות והנושאים נשמרים: הם נושאים משמעות, לא קישוט.
+   =========================================================== */
+:root{
+  --ground:#E6E6E3;
+  --surface:#F2F2EF;
+  --surface-2:#DADAD6;
+  --ink:#141618;
+  --ink-soft:#4F555B;
+  --ink-faint:#70767C;
+  --line:#C9CAC5;
+  --accent:#6F7378;
+  --tool-bg:#191B1E;
+  --tool-bg-2:#24272B;
+  --tool-line:#33373D;
+
+  --sans:"IBM Plex Sans Hebrew",system-ui,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",monospace;
+  --depth-1:0 1px 2px rgba(10,12,14,.06),0 4px 14px rgba(10,12,14,.07);
+  --depth-2:0 2px 4px rgba(10,12,14,.08),0 18px 40px -12px rgba(10,12,14,.28);
+  --ease:cubic-bezier(.2,.7,.3,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D0E10;
+    --surface:#17191B;
+    --surface-2:#202326;
+    --line:#2A2D31;
+    --accent:#A3A8AE;
+    --depth-1:0 1px 2px rgba(0,0,0,.4),0 6px 18px rgba(0,0,0,.35);
+    --depth-2:0 2px 6px rgba(0,0,0,.5),0 22px 48px -14px rgba(0,0,0,.7);
+  }
+}
+
+body{
+  font-family:var(--sans);
+  background:
+    radial-gradient(120% 70% at 85% 0%,var(--surface) 0%,transparent 60%),
+    linear-gradient(180deg,var(--ground),var(--surface-2));
+  background-attachment:fixed;
+}
+h1,h2,h3{font-family:var(--sans);font-weight:300;letter-spacing:-.01em}
+
+/* תוויות: מונוספייס, מרווח, קטן */
+.t-label,.label,.kingdom-head .kfull,.kingdom-head .kstate,.tab .count,
+.footer,.open-hint,.taxon,.frame .file,.shot-pending .file{
+  font-family:var(--mono);
+  letter-spacing:.08em;
+}
+.t-label,.label{font-weight:500;text-transform:uppercase}
+.taxon{font-style:normal!important}
+
+/* הכלי: פאנל עם עומק, לא משטח שטוח */
+.tool{
+  background-image:
+    linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0) 60%),
+    repeating-linear-gradient(135deg,transparent 0 3px,var(--tool-hatch) 3px 4px);
+}
+.topbar{position:relative;z-index:5;box-shadow:0 1px 0 var(--tool-line),0 10px 24px -14px rgba(0,0,0,.6)}
+.topbar h1{
+  font-family:var(--sans);font-weight:200;
+  font-size:clamp(20px,2.4vw,30px);letter-spacing:.02em;
+}
+.btn,.tab{font-family:var(--sans)}
+.btn{border-radius:2px;transition:background .2s ease,border-color .2s ease,transform .2s var(--ease)}
+.btn:hover{transform:translateY(-1px)}
+.tab{position:relative}
+.tab[aria-current="true"]{font-weight:600}
+
+/* במה: שלוש עמודות כגיליונות מורמים מעל הרקע */
+.triptych{
+  background:none;
+  gap:clamp(10px,1.4vw,18px);
+  padding:clamp(10px,1.4vw,18px);
+  perspective:1400px;
+}
+.source,.slot-col{
+  background:linear-gradient(180deg,var(--surface),var(--ground));
+  box-shadow:var(--depth-1);
+  border-radius:3px;
+  overflow:hidden;
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease),background .25s ease;
+  animation:sheet-in .7s var(--ease) both;
+}
+.triptych > :nth-child(2){animation-delay:.08s}
+.triptych > :nth-child(3){animation-delay:.16s}
+@keyframes sheet-in{
+  from{opacity:0;transform:translateY(18px) rotateX(6deg)}
+  to{opacity:1;transform:none}
+}
+.source:hover,.source:focus-visible{
+  background:linear-gradient(180deg,var(--surface),var(--surface));
+  box-shadow:var(--depth-2);
+  transform:translateY(-4px);
+}
+.slot-col{background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(127,127,127,.06) 6px 7px),var(--ground);box-shadow:inset 0 0 0 1px var(--line)}
+.source-head h2{font-weight:200;font-size:clamp(24px,2.6vw,36px);line-height:1.05}
+.frame figcaption h3{font-weight:400}
+.frame img{filter:saturate(.88) contrast(1.03)}
+.source:hover .frame img{filter:none}
+
+/* כותרת ממלכה: פס צבע עם עומק */
+.kingdom-head .kname{font-family:var(--sans);font-weight:300}
+
+/* עמוד העמקה */
+.detail{
+  background:
+    radial-gradient(90% 60% at 10% 0%,var(--surface) 0%,transparent 65%),
+    var(--ground);
+}
+.detail-bar{box-shadow:0 12px 28px -16px rgba(0,0,0,.65);z-index:2}
+.detail-bar h2{font-family:var(--sans);font-weight:200}
+.panes{background:none;gap:clamp(10px,1.4vw,18px);padding:clamp(10px,1.4vw,18px)}
+.pane,.bridge{
+  background:var(--surface);
+  box-shadow:var(--depth-1);
+  border-radius:3px;
+  animation:sheet-in .6s var(--ease) both;
+}
+.pane + .pane{animation-delay:.07s}
+.pane .shot{border-radius:3px 3px 0 0}
+.bridge{animation-delay:.14s}
+.pane-body h3{font-weight:300;font-size:clamp(22px,2.2vw,30px)}
+.pane-body p,.bridge p{line-height:1.7}
+
+.empty h2{font-weight:200;font-size:clamp(30px,4vw,52px)}
+.footer{font-size:10.5px}
+
+@media (max-width:900px){
+  .triptych{gap:12px;padding:12px}
+  .source:hover,.source:focus-visible{transform:none}
+  .panes{grid-template-columns:1fr;grid-auto-rows:max-content;align-content:start}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+@media print{
+  body{background:#fff}
+  .source,.pane,.bridge{box-shadow:none}
+}
+
+/* ===== סרגל ניווט קבוע בכל הדפים ===== */
+.shell{grid-template-columns:minmax(0,1fr)}
+.navstack{position:sticky;inset-block-start:0;z-index:50;min-width:0}
+.stage{overflow:auto}
+.detail{inset-block-start:var(--nav-h,0px);z-index:45}
+@media (max-width:900px){
+  .kingdom-head{inset-block-start:var(--nav-h,0px);z-index:3}
+  .stage{overflow:visible}
+}
+
+/* שם האפליקציה הוא הקישור לדף הבית */
+.home-link{
+  text-decoration:none;color:inherit;
+  display:flex;align-items:baseline;gap:12px;
+  padding-block:2px;border-radius:2px;
+}
+.home-link .t-label{transition:color .2s ease}
+.home-link:hover .t-label{color:var(--tool-ink-soft)}
+.home-link:hover h1{color:#fff}
+.home-link:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.topbar .mark::before{display:none}
+.topbar .tools{flex-wrap:wrap}
+a.btn{text-decoration:none}
+.btn-ext{color:var(--tool-ink-soft);border-style:dashed}
+.btn-ext:hover{color:var(--tool-ink);border-style:solid}
+.btn:disabled{opacity:.4;cursor:default;transform:none}
+
+/* ===== דף הבית ===== */
+.home{padding:clamp(16px,3vw,44px);display:grid;gap:clamp(22px,3vw,40px);align-content:start}
+.home-hero{
+  display:grid;gap:14px;max-width:none;
+  padding:clamp(22px,3.4vw,48px);
+  background:
+    radial-gradient(80% 120% at 100% 0%,rgba(255,255,255,.07),transparent 60%),
+    linear-gradient(135deg,var(--tool-bg) 0%,#2B3036 100%);
+  color:var(--tool-ink);
+  border-radius:3px;box-shadow:var(--depth-2);
+  position:relative;overflow:hidden;
+  animation:sheet-in .7s var(--ease) both;
+}
+.home-hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(135deg,transparent 0 3px,var(--tool-hatch) 3px 4px);
+}
+.home-hero .label{color:var(--tool-ink-faint)}
+.home-hero h2{font-weight:200;font-size:clamp(30px,4.6vw,64px);line-height:1.05;max-width:18ch;color:#F2F1EC}
+.home-hero p{color:var(--tool-ink-soft);font-size:15.5px;max-width:58ch;line-height:1.7}
+.home-stats{display:flex;gap:clamp(18px,4vw,56px);margin:8px 0 0;flex-wrap:wrap;position:relative;z-index:1}
+.home-stats div{display:grid;gap:2px}
+.home-stats dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--tool-ink-faint)}
+.home-stats dd{margin:0;font-size:clamp(28px,3.4vw,44px);font-weight:200;color:#F2F1EC;font-variant-numeric:tabular-nums}
+
+.home-grid{
+  display:grid;gap:clamp(12px,1.6vw,22px);
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));
+}
+.home-card{
+  display:grid;grid-template-rows:auto 1fr;
+  background:linear-gradient(180deg,var(--surface),var(--ground));
+  border-radius:3px;overflow:hidden;
+  box-shadow:var(--depth-1);
+  border-block-start:3px solid var(--hue);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+  animation:sheet-in .7s var(--ease) both;
+  animation-delay:calc(var(--i) * 60ms + 120ms);
+}
+.home-card:hover{transform:translateY(-4px);box-shadow:var(--depth-2)}
+.home-cover{
+  position:relative;aspect-ratio:16/10;padding:0;border:0;margin:0;
+  cursor:pointer;overflow:hidden;background:var(--surface-2);display:block;width:100%;
+  font:inherit;text-align:start;
+}
+.home-cover img{transition:transform .8s var(--ease),filter .4s ease;filter:saturate(.8)}
+.home-card:hover .home-cover img{transform:scale(1.05);filter:none}
+.home-cover-text{
+  position:absolute;inset:auto 0 0 0;display:grid;gap:2px;
+  padding:42px 18px 14px;
+  background:linear-gradient(to top,rgba(12,14,16,.82),rgba(12,14,16,0));
+  color:var(--onimg);
+}
+.home-cover-text .label{color:rgba(246,244,239,.75)}
+.home-cover-text h3{font-size:clamp(24px,2.4vw,32px);font-weight:300;color:var(--onimg)}
+.home-cover:focus-visible{outline:2px solid var(--focus);outline-offset:-3px}
+.home-card-body{padding:16px 18px 18px;display:grid;gap:12px;align-content:start}
+.home-card-body p{font-size:14px;color:var(--ink-soft);line-height:1.6}
+.home-card-body ul{list-style:none;margin:0;padding:0;display:grid;border-block-start:1px solid var(--line)}
+.home-card-body li{border-block-end:1px solid var(--line)}
+.home-card-body li button{
+  width:100%;text-align:start;background:none;border:0;cursor:pointer;
+  font:inherit;font-size:13.5px;color:var(--ink);padding:8px 0;
+  display:flex;justify-content:space-between;gap:10px;
+  transition:color .2s ease,padding .25s var(--ease);
+}
+.home-card-body li button::after{content:"";width:18px;height:1px;background:var(--hue);align-self:center;opacity:0;transition:opacity .2s ease,width .25s var(--ease)}
+.home-card-body li button:hover{color:var(--hue);padding-inline-start:6px}
+.home-card-body li button:hover::after{opacity:1;width:28px}
+.home-card-body li button:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.is-home .footer{display:none}
+
+@media (max-width:900px){
+  .topbar{row-gap:8px;padding-block:8px}
+  .topbar .tools{margin-inline-start:0;flex-basis:100%;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .topbar .tools::-webkit-scrollbar{display:none}
+  .home-link .t-label{display:none}
+}

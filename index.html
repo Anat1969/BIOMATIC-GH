@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#191B1E">
+<title>מהטבע אל הבניין</title>
+<meta name="description" content="ביומימטיקה בתכנון: מנגנונים מהטבע מול יישומם בבנייה, לפי נושאים ותתי־נושאים.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+</head>
+<body>
+<div class="shell">
+  <div class="navstack" id="navstack">
+  <header class="topbar tool">
+    <a class="mark home-link" href="#" id="homeLink" aria-label="לדף הבית">
+      <span class="t-label">ביומימטיקה בתכנון</span>
+      <h1>מהטבע אל הבניין</h1>
+    </a>
+    <div class="tools">
+      <a class="btn btn-ext" href="https://claude.ai/code/session_012j18kwMgNoRGXNsAyEqU2f" target="_blank" rel="noopener" title="השיחה שבה נבנה האתר, להמשך שדרוג">שיחת הפיתוח</a>
+      <a class="btn btn-ext" href="https://claude.ai/project/019e0e12-3f58-7313-b2dc-eb001911b991" target="_blank" rel="noopener" title="פרויקט Claude לחקירת התוכן">פרויקט המחקר</a>
+      <button class="btn" id="btnShare" hidden>העתקת קישור</button>
+      <button class="btn" id="btnPrint" title="שער ועמוד A4 לכל מקור השראה">הדפסת תת־נושא</button>
+    </div>
+  </header>
+
+  <nav class="rail topics tool" id="railTopics" aria-label="נושאים">
+    <div class="rail-lead"><span class="t-label">נושא</span></div>
+  </nav>
+
+  <nav class="rail subs tool" id="railSubs" aria-label="תתי־נושאים">
+    <div class="rail-lead"><span class="t-label">תת־נושא</span></div>
+  </nav>
+  </div>
+
+  <main class="stage" id="stage"></main>
+
+  <footer class="footer tool" id="footer"></footer>
+</div>
+
+<section class="detail" id="detail" hidden aria-modal="true" role="dialog" aria-labelledby="detailTitle"></section>
+<div class="printsheet" id="printsheet" aria-hidden="true"></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
