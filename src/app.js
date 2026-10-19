@@ -346,7 +346,7 @@ detail.addEventListener("click", e=>{
   }
 });
 document.addEventListener("keydown", e=>{
-  if(e.key==="Escape" && !detail.hidden) closeDetail();
+  if(e.key==="Escape" && !detail.hidden && settingsCard.hidden) closeDetail();
 });
 
 /* ---------- print: the active sub-topic, one page per source ---------- */
@@ -418,14 +418,35 @@ function buildPrintSheet(onlyKey){
     }).join("")}`;
 }
 
+/* ---------- כרטיס ההגדרות: נפתח מהלוגו של ענת ---------- */
+const settings     = document.getElementById("settings");
+const btnSettings  = document.getElementById("btnSettings");
+const settingsCard = document.getElementById("settingsCard");
+function setSettings(open){
+  settingsCard.hidden = !open;
+  btnSettings.setAttribute("aria-expanded", open ? "true" : "false");
+  btnSettings.classList.toggle("on", open);
+}
+btnSettings.addEventListener("click", ()=> setSettings(settingsCard.hidden));
+document.addEventListener("click", e=>{
+  if(!settingsCard.hidden && !settings.contains(e.target)) setSettings(false);
+});
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape" && !settingsCard.hidden){ setSettings(false); btnSettings.focus(); }
+});
+settingsCard.addEventListener("click", e=>{
+  if(e.target.closest("a.sbtn")) setSettings(false);
+});
+
 document.getElementById("btnPrint").addEventListener("click", ()=>{
+  setSettings(false);
   if(!detail.hidden) closeDetail();
   window.print();
 });
 
 const share = document.getElementById("btnShare");
-if(location.protocol === "http:" || location.protocol === "https:"){
-  share.hidden = false;
+share.hidden = !(location.protocol === "http:" || location.protocol === "https:");
+{
   share.addEventListener("click", async ()=>{
     try{
       await navigator.clipboard.writeText(location.href);
@@ -449,6 +470,7 @@ window.addEventListener("beforeinstallprompt", e=>{
   e.preventDefault();
   installEvent = e;
   btnInstall.hidden = false;
+  document.getElementById("installNote").hidden = true;
 });
 btnInstall.addEventListener("click", async ()=>{
   if(!installEvent) return;
@@ -458,3 +480,4 @@ btnInstall.addEventListener("click", async ()=>{
   btnInstall.hidden = true;
 });
 window.addEventListener("appinstalled", ()=>{ btnInstall.hidden = true; });
+if(matchMedia("(display-mode: standalone)").matches) document.getElementById("installNote").hidden = true;

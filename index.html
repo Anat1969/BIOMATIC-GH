@@ -20,15 +20,35 @@
   <div class="navstack" id="navstack">
   <header class="topbar tool">
     <a class="mark home-link" href="#" id="homeLink" aria-label="לדף הבית">
-      <span class="t-label">ביומימטיקה בתכנון</span>
-      <h1>מהטבע אל הבניין</h1>
+      <img class="app-mark" src="/icons/icon.svg" alt="" width="34" height="34">
+      <span class="brand">
+        <h1>מהטבע אל הבניין</h1>
+        <span class="t-label">ביומימטיקה בתכנון</span>
+      </span>
     </a>
-    <div class="tools">
-      <button class="btn btn-install" id="btnInstall" hidden title="התקנה כאפליקציה שנפתחת תמיד בחלון Chrome משלה">התקנת האפליקציה</button>
-      <a class="btn btn-ext" href="https://claude.ai/code/session_012j18kwMgNoRGXNsAyEqU2f" target="_blank" rel="noopener" title="השיחה שבה נבנה האתר, להמשך שדרוג">שיחת הפיתוח</a>
-      <a class="btn btn-ext" href="https://claude.ai/project/019e0e12-3f58-7313-b2dc-eb001911b991" target="_blank" rel="noopener" title="פרויקט Claude לחקירת התוכן">פרויקט המחקר</a>
-      <button class="btn" id="btnShare" hidden>העתקת קישור</button>
-      <button class="btn" id="btnPrint" title="שער ועמוד A4 לכל מקור השראה">הדפסת תת־נושא</button>
+    <div class="settings" id="settings">
+      <button class="logo-btn" id="btnSettings" aria-expanded="false" aria-haspopup="dialog" aria-controls="settingsCard" aria-label="הגדרות">
+        <img class="brand-logo" src="/logo.png" alt="אד׳ ענת שטיבלמן" width="442" height="155">
+      </button>
+      <div class="settings-card" id="settingsCard" role="dialog" aria-label="הגדרות" hidden>
+        <span class="label">הגדרות</span>
+        <div class="settings-list">
+          <button class="sbtn" id="btnShare">העתקת קישור</button>
+          <a class="sbtn" href="https://claude.ai/code/session_012j18kwMgNoRGXNsAyEqU2f" target="_blank" rel="noopener">שיחת הפיתוח</a>
+          <a class="sbtn" href="https://claude.ai/project/019e0e12-3f58-7313-b2dc-eb001911b991" target="_blank" rel="noopener">פרויקט המחקר</a>
+          <button class="sbtn" id="btnPrint">הדפסת תת־נושא</button>
+          <button class="sbtn sbtn-dark" id="btnInstall" hidden>התקנת האפליקציה</button>
+          <span class="settings-note" id="installNote">התקנת האפליקציה: נפתחת כש-Chrome מציע אותה, או מתפריט Chrome, "התקנת הדף כאפליקציה".</span>
+        </div>
+        <div class="settings-sep"></div>
+        <span class="label">פרטי הפרויקט</span>
+        <dl class="proj">
+          <div><dt>ריפו</dt><dd><a href="https://github.com/Anat1969/BIOMATIC-GH" target="_blank" rel="noopener" dir="ltr">Anat1969/BIOMATIC-GH</a></dd></div>
+          <div><dt>פריסה</dt><dd><a href="https://biomatic-weld.vercel.app" target="_blank" rel="noopener" dir="ltr">biomatic-weld.vercel.app</a></dd></div>
+          <div><dt>פרויקט Vercel</dt><dd><span dir="ltr">biomatic</span></dd></div>
+          <div><dt>Supabase ומפתחות</dt><dd>אין. התוכן סטטי, בקובץ src/data.js</dd></div>
+        </dl>
+      </div>
     </div>
   </header>
 
