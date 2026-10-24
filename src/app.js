@@ -234,7 +234,7 @@ function goTo(tk, sk){
 
 function render(){
   document.body.classList.toggle("is-home", !topicKey);
-  document.getElementById("btnPrint").disabled = !sub();
+  setMenuItems();
   renderTopics(); renderSubs(); renderStage(); renderFooter(); buildPrintSheet();
   writeHash();
 }
@@ -346,7 +346,7 @@ detail.addEventListener("click", e=>{
   }
 });
 document.addEventListener("keydown", e=>{
-  if(e.key==="Escape" && !detail.hidden && settingsCard.hidden) closeDetail();
+  if(e.key==="Escape" && !detail.hidden && !menuWasOpen) closeDetail();
 });
 
 /* ---------- print: the active sub-topic, one page per source ---------- */
@@ -418,45 +418,20 @@ function buildPrintSheet(onlyKey){
     }).join("")}`;
 }
 
-/* ---------- כרטיס ההגדרות: נפתח מהלוגו של ענת ---------- */
-const settings     = document.getElementById("settings");
-const btnSettings  = document.getElementById("btnSettings");
-const settingsCard = document.getElementById("settingsCard");
-function setSettings(open){
-  settingsCard.hidden = !open;
-  btnSettings.setAttribute("aria-expanded", open ? "true" : "false");
-  btnSettings.classList.toggle("on", open);
+/* ---------- כפתור הלוגו A&I: העתקת קישור, שיחת הפיתוח, פרויקט המחקר, התקנה, והדפסה ---------- */
+function setMenuItems(){
+  const menu = document.querySelector("ai-menu");
+  if(!menu) return;
+  menu.items = [
+    { label:"הדפסת תת־נושא", hint:"A4", disabled:!sub(), onSelect:()=>{ if(!detail.hidden) closeDetail(); window.print(); } },
+    { label:"ריפו הפרויקט", hint:"GitHub", onSelect:()=>{ window.open("https://github.com/Anat1969/BIOMATIC-GH", "_blank", "noopener"); } },
+  ];
 }
-btnSettings.addEventListener("click", ()=> setSettings(settingsCard.hidden));
-document.addEventListener("click", e=>{
-  if(!settingsCard.hidden && !settings.contains(e.target)) setSettings(false);
-});
+// Escape closes the menu first; the detail page closes only when the menu was not open.
+let menuWasOpen = false;
 document.addEventListener("keydown", e=>{
-  if(e.key==="Escape" && !settingsCard.hidden){ setSettings(false); btnSettings.focus(); }
-});
-settingsCard.addEventListener("click", e=>{
-  if(e.target.closest("a.sbtn")) setSettings(false);
-});
-
-document.getElementById("btnPrint").addEventListener("click", ()=>{
-  setSettings(false);
-  if(!detail.hidden) closeDetail();
-  window.print();
-});
-
-const share = document.getElementById("btnShare");
-share.hidden = !(location.protocol === "http:" || location.protocol === "https:");
-{
-  share.addEventListener("click", async ()=>{
-    try{
-      await navigator.clipboard.writeText(location.href);
-      share.textContent = "הקישור הועתק";
-    }catch(err){
-      share.textContent = location.href;
-    }
-    setTimeout(()=>{ share.textContent = "העתקת קישור"; }, 2600);
-  });
-}
+  if(e.key==="Escape") menuWasOpen = document.querySelector("ai-menu")?.shadowRoot?.querySelector(".logo")?.getAttribute("aria-expanded")==="true";
+}, true);
 
 render();
 
@@ -464,20 +439,3 @@ render();
 if("serviceWorker" in navigator && location.protocol === "https:"){
   navigator.serviceWorker.register("/sw.js").catch(()=>{});
 }
-const btnInstall = document.getElementById("btnInstall");
-let installEvent = null;
-window.addEventListener("beforeinstallprompt", e=>{
-  e.preventDefault();
-  installEvent = e;
-  btnInstall.hidden = false;
-  document.getElementById("installNote").hidden = true;
-});
-btnInstall.addEventListener("click", async ()=>{
-  if(!installEvent) return;
-  installEvent.prompt();
-  await installEvent.userChoice;
-  installEvent = null;
-  btnInstall.hidden = true;
-});
-window.addEventListener("appinstalled", ()=>{ btnInstall.hidden = true; });
-if(matchMedia("(display-mode: standalone)").matches) document.getElementById("installNote").hidden = true;

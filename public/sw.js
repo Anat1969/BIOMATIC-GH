@@ -1,5 +1,5 @@
 /* מטמון פשוט: הדף תמיד מהרשת כשאפשר, תמונות וקבצי בנייה מהמטמון */
-const CACHE = "biomatic-v2";
+const CACHE = "biomatic-v3";
 
 self.addEventListener("install", e => self.skipWaiting());
 self.addEventListener("activate", e => {

@@ -11,6 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="מהטבע לבניין">
 <title>מהטבע אל הבניין</title>
 <meta name="description" content="ביומימטיקה בתכנון: מנגנונים מהטבע מול יישומם בבנייה, לפי נושאים ותתי־נושאים.">
+<script src="https://appofapp-gh.vercel.app/ai-menu.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@200;300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -27,28 +28,7 @@
       </span>
     </a>
     <div class="settings" id="settings">
-      <button class="logo-btn" id="btnSettings" aria-expanded="false" aria-haspopup="dialog" aria-controls="settingsCard" aria-label="הגדרות">
-        <img class="brand-logo" src="/logo.png" alt="אד׳ ענת שטיבלמן" width="442" height="155">
-      </button>
-      <div class="settings-card" id="settingsCard" role="dialog" aria-label="הגדרות" hidden>
-        <span class="label">הגדרות</span>
-        <div class="settings-list">
-          <button class="sbtn" id="btnShare">העתקת קישור</button>
-          <a class="sbtn" href="https://claude.ai/code/session_012j18kwMgNoRGXNsAyEqU2f" target="_blank" rel="noopener">שיחת הפיתוח</a>
-          <a class="sbtn" href="https://claude.ai/project/019e0e12-3f58-7313-b2dc-eb001911b991" target="_blank" rel="noopener">פרויקט המחקר</a>
-          <button class="sbtn" id="btnPrint">הדפסת תת־נושא</button>
-          <button class="sbtn sbtn-dark" id="btnInstall" hidden>התקנת האפליקציה</button>
-          <span class="settings-note" id="installNote">התקנת האפליקציה: נפתחת כש-Chrome מציע אותה, או מתפריט Chrome, "התקנת הדף כאפליקציה".</span>
-        </div>
-        <div class="settings-sep"></div>
-        <span class="label">פרטי הפרויקט</span>
-        <dl class="proj">
-          <div><dt>ריפו</dt><dd><a href="https://github.com/Anat1969/BIOMATIC-GH" target="_blank" rel="noopener" dir="ltr">Anat1969/BIOMATIC-GH</a></dd></div>
-          <div><dt>פריסה</dt><dd><a href="https://biomatic-weld.vercel.app" target="_blank" rel="noopener" dir="ltr">biomatic-weld.vercel.app</a></dd></div>
-          <div><dt>פרויקט Vercel</dt><dd><span dir="ltr">biomatic</span></dd></div>
-          <div><dt>Supabase ומפתחות</dt><dd>אין. התוכן סטטי, בקובץ src/data.js</dd></div>
-        </dl>
-      </div>
+      <ai-menu chat="https://claude.ai/code/session_012j18kwMgNoRGXNsAyEqU2f" research="https://claude.ai/project/019e0e12-3f58-7313-b2dc-eb001911b991"></ai-menu>
     </div>
   </header>
 
