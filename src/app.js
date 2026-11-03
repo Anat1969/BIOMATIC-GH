@@ -94,6 +94,8 @@ const MATERIAL_LINKS = {
   "wellbeing/air-filter":"clean-air", "water/treatment":"clean-water", "wellbeing/carbon":"carbon", "wellbeing/indoor-air":"dry",
 };
 const materialUrl = id => `https://tavla-machzorit.vercel.app/#/nature?ch=${id}`;
+/* כתבה לכל תגלית (public/articles, נבנות מ-articles/build.mjs בריפו TavlaMachzorit-GH) */
+const ARTICLE_LINKS = {"energy/solar": "light-trap", "energy/kinetic": "pressed-crystal", "wellbeing/air-filter": "light-cleans-air", "water/treatment": "pebble-bed", "wellbeing/carbon": "fast-basalt", "structure/lightweight": "diatom", "wellbeing/indoor-air": "salt-humidity", "climate/envelope-cooling": "silver-ant"};
 
 function renderSubs(){
   railSubs.querySelectorAll(".tab, .blurb, .material-link").forEach(n=>n.remove());
@@ -135,6 +137,16 @@ function renderSubs(){
       a.rel = "noopener";
       a.textContent = "איזה חומר עושה את זה?";
       a.title = "המשך בטבלה המחזורית כרשת: החומר שעושה את זה היום, ומה אפשר להמציא ממנו";
+      railSubs.appendChild(a);
+    }
+    const art = ARTICLE_LINKS[`${t.key}/${cur.key}`];
+    if(art){
+      const a = document.createElement("a");
+      a.className = "material-link";
+      a.href = `/articles/${art}.html`;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = "כתבה על התגלית";
       railSubs.appendChild(a);
     }
     const d = document.createElement("div");
