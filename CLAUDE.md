@@ -45,3 +45,6 @@
 
 ## A&I logo button
 The top bar holds only the app name (links home), content navigation, and ONE logo button "אד' ענת שטיבלמן A&I" (`<ai-menu>` from https://appofapp-gh.vercel.app/ai-menu.js). Every editing and development action (העתקת קישור, שיחת הפיתוח, פרויקט המחקר, התקנת האפליקציה, edit mode, add, delete) lives only inside it, never as loose buttons. Standard: https://github.com/Anat1969/AppOfApp-GH/blob/main/docs/ai-menu-standard.md
+
+## קישור לטבלה המחזורית כרשת
+- 2026-11-03: בשמונה תתי־נושאים יש כפתור "איזה חומר עושה את זה?" שמוביל לדף "מהטבע לחומר" (https://tavla-machzorit.vercel.app/#/nature?ch=...). המיפוי ב-`MATERIAL_LINKS` ב-`src/app.js`, ומקבילו בצד השני ב-`src/data/challenges.ts` של TavlaMachzorit-GH. אתגר חדש נוסף בשני המקומות.
