@@ -88,8 +88,15 @@ function renderTopics(){
   });
 }
 
+/* תתי־נושאים שיש להם המשך בטבלה המחזורית כרשת: איזה חומר עושה את זה, ומה אפשר להמציא */
+const MATERIAL_LINKS = {
+  "climate/envelope-cooling":"cool", "structure/lightweight":"light", "energy/solar":"sun", "energy/kinetic":"press",
+  "wellbeing/air-filter":"clean-air", "water/treatment":"clean-water", "wellbeing/carbon":"carbon", "wellbeing/indoor-air":"dry",
+};
+const materialUrl = id => `https://tavla-machzorit.vercel.app/#/nature?ch=${id}`;
+
 function renderSubs(){
-  railSubs.querySelectorAll(".tab, .blurb").forEach(n=>n.remove());
+  railSubs.querySelectorAll(".tab, .blurb, .material-link").forEach(n=>n.remove());
   const t = topic();
   if(!t){
     const s = document.createElement("div");
@@ -119,6 +126,17 @@ function renderSubs(){
   });
   const cur = sub();
   if(cur){
+    const m = MATERIAL_LINKS[`${t.key}/${cur.key}`];
+    if(m){
+      const a = document.createElement("a");
+      a.className = "material-link";
+      a.href = materialUrl(m);
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.textContent = "איזה חומר עושה את זה?";
+      a.title = "המשך בטבלה המחזורית כרשת: החומר שעושה את זה היום, ומה אפשר להמציא ממנו";
+      railSubs.appendChild(a);
+    }
     const d = document.createElement("div");
     d.className = "blurb";
     d.textContent = cur.blurb;
