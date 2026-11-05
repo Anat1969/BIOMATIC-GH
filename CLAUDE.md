@@ -49,3 +49,6 @@ The top bar holds only the app name (links home), content navigation, and ONE lo
 ## קישור לטבלה המחזורית כרשת
 - 2026-11-03: בשמונה תתי־נושאים יש כפתור "איזה חומר עושה את זה?" שמוביל לדף "מהטבע לחומר" (https://tavla-machzorit.vercel.app/#/nature?ch=...). המיפוי ב-`MATERIAL_LINKS` ב-`src/app.js`, ומקבילו בצד השני ב-`src/data/challenges.ts` של TavlaMachzorit-GH. אתגר חדש נוסף בשני המקומות.
 - 2026-11-03: כתבה לכל תגלית. שמונה כתבות ב-`public/articles` (HTML בעיצוב המאמר הקבוע, PDF ו-Word), ובכל תת־נושא ממופה כפתור "כתבה על התגלית". הכתבות נבנות מ-`articles/content.mjs` ו-`articles/build.mjs` בריפו TavlaMachzorit-GH: לא לערוך את ה-HTML ידנית, אלא את התוכן שם, ולהריץ מחדש.
+
+## גשר מארק ובינה
+- 05.11.2026: `index.html` טוען את `https://arc-and-bina.vercel.app/bridge.js`. מי שמגיע מארק ובינה עם `?ab_q=...&ab_back=...` רואה פס תחתון עם שאלת המחקר וכפתור חזרה. הקישור הנכנס: לקוח "תולעת" אל `#water/street-runoff`. המיפוי בצד השני: `BRIDGES` ב-`src/data.js` של ArcAndBina-GH.
